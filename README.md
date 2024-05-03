@@ -1,5 +1,17 @@
 # Docker-Inception
 
+## Useful commands
+
+- `docker build -t image_name:tag .` - run dockerfile
+- `docker exec -it container_id_or_name /bin/bash` - enter container
+- `docker images` - list all docker images
+- `docker ps -a` - list both stopped and running containers
+- `docker rmi image_id_or_name` - delete an image
+- `docker rm container_id_or_name` - delete a container
+- `docker stop container_id_or_name` - stop a container
+- `docker container prune` - delete all stopped containers
+
+
 
 ## Docker Images
 
