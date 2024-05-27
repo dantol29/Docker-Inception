@@ -1,16 +1,31 @@
+
+# docker run -d -p 8080:8080 -p 443:443 test:123 - to add ports
+
 FROM debian:11
 
 RUN apt-get update && apt-get install -y nginx openssl
 
-RUN openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem \
+RUN openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/key.pem -out /etc/nginx/cert.pem \
 -sha256 -days 3650 -nodes -subj \
-"/C=DE/ST=Texas/L=Austin/0=42/OU=Org/CN=dtolmaco.42.fr"
+"/C=DE/ST=Texas/L=Austin/O=42/OU=Org/CN=dtolmaco.42.fr"
+
+RUN echo ' \
+events { } \
+http { \
+    server { \
+        listen 8080; \
+        listen 443 ssl; \
+        ssl_certificate /etc/nginx/cert.pem; \
+        ssl_certificate_key /etc/nginx/key.pem; \
+        location / { \
+            root /app; \
+            index index.html; \
+        } \
+    } \
+}' > /etc/nginx/nginx.conf
 
 WORKDIR /app
 
+EXPOSE 8080 80 443
 
-# EXPOSE port
-
-ENTRYPOINT [ "nginx" ]
-
-CMD [ "-g", "daemon off;" ]
+CMD ["nginx", "-g", "daemon off;"]
