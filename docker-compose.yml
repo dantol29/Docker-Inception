@@ -26,5 +26,13 @@ services:
     expose:
       - "9000"
 
+  mariadb:
+    build: mariadb/
+    expose:
+      - "3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
 volumes:
   wordpress-data:
+  mariadb-data:
