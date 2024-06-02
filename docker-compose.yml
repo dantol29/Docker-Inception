@@ -1,13 +1,20 @@
-version: '3.7'
+version: "3.7"
 services:
-    nginx:
-      build: nginx/
-       # Maps the host machine's ports to the container's ports.
-      ports:
-        - "443:443"
-      # Exposes port 9000 to other services in the same Docker network.
-      # This does not make the port accessible from the host machine.
-      expose:
-        - "9000"
-      environment:
-        PASSWORD: "${PASSWORD}"
+  nginx:
+    build:
+      nginx/
+      # Maps the host machine's ports to the container's ports.
+    ports:
+      - "443:443"
+    # Exposes port 9000 to other services in the same Docker network.
+    # This does not make the port accessible from the host machine.
+    expose:
+      - "9000"
+    environment:
+      PASSWORD: "${PASSWORD}"
+  wordpress:
+    build: wordpress/
+    expose:
+      - "9000"
+    depends_on:
+      - nginx
