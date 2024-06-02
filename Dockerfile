@@ -13,8 +13,8 @@ RUN echo ' \
 events { } \
 http { \
     server { \
-        listen 8080; \
         listen 443 ssl; \
+        ssl_protocols TLSv1.2 TLSv1.3; \
         ssl_certificate /etc/nginx/cert.pem; \
         ssl_certificate_key /etc/nginx/key.pem; \
         location / { \
@@ -26,6 +26,6 @@ http { \
 
 WORKDIR /app
 
-EXPOSE 8080 80 443
+EXPOSE 9000 443
 
 CMD ["nginx", "-g", "daemon off;"]
