@@ -11,7 +11,7 @@ services:
     expose:
       - "9000"
     volumes:
-      -wordpress-data:/var/www/html
+      - wordpress-data:/var/www/html
     depends_on:
       - wordpress
   
@@ -22,12 +22,12 @@ services:
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress-data:/var/www/html
     expose:
       - "9000"
-    volumes:
-      -wordpress-data:/var/www/html
-    
-   db:
+  
+  db:
     image: mysql:5.7
     environment:
       MYSQL_DATABASE: exampledb

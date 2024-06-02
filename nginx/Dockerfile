@@ -11,11 +11,7 @@ RUN openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/key.pem -out /etc/ngin
 
 COPY  nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir app
-
-RUN echo 'hello' > /app/index.html
-
-WORKDIR /app
+RUN chmod -R 755 /var/www/html
 
 EXPOSE 9000 443
 
