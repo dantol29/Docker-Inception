@@ -34,6 +34,8 @@ RUN wget https://wordpress.org/latest.tar.gz \
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
 
+RUN cat settings.php > var/www/wp-config.php
+
 # Expose port 9000 and 3306
 EXPOSE 9000 3306
 

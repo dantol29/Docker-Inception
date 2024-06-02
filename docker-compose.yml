@@ -17,10 +17,10 @@ services:
   wordpress:
     build: wordpress/
     environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_DB_HOST: dbhost
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: dbname
     volumes:
       - wordpress-data:/var/www/html
     expose:

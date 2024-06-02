@@ -5,6 +5,10 @@ RUN apt-get update && apt-get install -y mariadb-server && \
 
 # COPY custom-config.cnf /etc/mysql/conf.d/
 
+RUN mkdir /run/mysqld
+
+RUN chmod 777 /run/mysqld
+
 EXPOSE 3306
 
 CMD ["mysqld", "--user=mysql", "--console"]
