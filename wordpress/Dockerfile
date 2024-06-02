@@ -34,8 +34,8 @@ RUN wget https://wordpress.org/latest.tar.gz \
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose port 9000
-EXPOSE 9000
+# Expose port 9000 and 3306
+EXPOSE 9000 3306
 
 # Start PHP-FPM server
 CMD ["php-fpm"]

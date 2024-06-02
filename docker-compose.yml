@@ -25,6 +25,7 @@ services:
       - wordpress-data:/var/www/html
     expose:
       - "9000"
+      - "3306"
 
   mariadb:
     build: mariadb/
