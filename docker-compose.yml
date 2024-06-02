@@ -2,9 +2,11 @@ version: '3.7'
 services:
     nginx:
       build: nginx/
+       # Maps the host machine's ports to the container's ports.
       ports:
         - "443:443"
-        - "8080:8080"
+      # Exposes port 9000 to other services in the same Docker network.
+      # This does not make the port accessible from the host machine.
       expose:
         - "9000"
       environment:
