@@ -17,10 +17,10 @@ services:
   wordpress:
     build: wordpress/
     environment:
-      WORDPRESS_DB_HOST: dbhost
-      WORDPRESS_DB_USER: user
-      WORDPRESS_DB_PASSWORD: password
-      WORDPRESS_DB_NAME: dbname
+      WORDPRESS_DB_HOST: ${dbhost}
+      WORDPRESS_DB_USER: ${user}
+      WORDPRESS_DB_PASSWORD: ${password}
+      WORDPRESS_DB_NAME: ${dbname}
     volumes:
       - wordpress-data:/var/www/html
     expose:
@@ -29,6 +29,10 @@ services:
 
   mariadb:
     build: mariadb/
+    environment:
+      MYSQL_DATABASE: ${dbname}
+      MYSQL_PASSWORD: ${password}
+      MYSQL_USER: ${user}
     expose:
       - "3306"
     volumes:

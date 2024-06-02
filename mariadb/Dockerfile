@@ -9,6 +9,8 @@ RUN mkdir /run/mysqld
 
 RUN chmod 777 /run/mysqld
 
+COPY init.sql /docker-entrypoint-initdb.d/
+
 EXPOSE 3306
 
 CMD ["mysqld", "--user=mysql", "--console"]

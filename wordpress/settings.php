@@ -18,7 +18,10 @@ $table_prefix = 'wp_';
 define( 'WP_DEBUG', false );
 
 // Absolute path to the WordPress directory
-define('ABSPATH', dirname(FILE) . '/');
+if (! defined('ABSPATH') )
+{
+    define('ABSPATH', dirname(__DIR__) . '/');
+}
 
 // Sets up WordPress vars and included files
 require_once( ABSPATH . 'wp-settings.php' );
