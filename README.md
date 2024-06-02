@@ -32,7 +32,8 @@ These instructions include the operating system, dependencies, libraries, and et
 
 - Containers can be started, stopped, moved, and deleted independently of each other.
 
-## Dockerfile
+<details>
+<summary><h2>Dockerfile</h2></summary>
 
 - `docker build -t <image_name> .`
 
@@ -61,7 +62,8 @@ These instructions include the operating system, dependencies, libraries, and et
 		Copy your application code or files into the container.
 	
 		Example: `COPY . .` 
-		(_means "copy everything from the current directory on the host machine into the current directory inside the Docker container being built."_)
+		(_means "copy everything from the current directory
+  		on the host machine into the current directory inside the Docker container being built."_)
 
 	### 5. Expose Ports: `EXPOSE`
 
@@ -86,11 +88,103 @@ These instructions include the operating system, dependencies, libraries, and et
 		Specify the command to run when the container starts.
 
 		Example: `ENTRYPOINT ["npm", "run"]`
-
-## Docker Compose
+  
+</details>
+<details>
+	
+<summary><h2>Docker Compose</h2></summary> 
 
 - Used for running `multi-container Docker applications`. It allows you to use a YAML file (usually named `docker-compose.yml`) to configure the services, networks, and volumes for your application, making it easier to manage and deploy complex applications consisting of multiple interconnected containers.
 
 - Automatically creates a `default network` for your application, allowing services to communicate with each other using their service names as hostnames.
 
 - Allows you to define `volumes` in the docker-compose.yml file, which are managed by Docker and can be reused across different containers. Volumes allow you to store and share data between containers.
+
+There has to be at least one `service` and _optionally_ `volume` and `network`
+```
+version: "3.7"
+services:
+  ...
+volumes:
+  ...
+networks:
+  ...
+```
+<details>
+<summary><h3>Services</h3></summary>
+
+```
+services:
+  frontend:
+    image: my-vue-app
+    ...
+  backend:
+    image: my-springboot-app
+    ...
+  db:
+    image: postgres
+```
+#### 1. Building an image
+```
+build: /path/to/dockerfile/
+```
+#### 2. Networking
+A service can communicate with another service on the same network through the expose keyword:
+```
+expose:
+      - "80"
+```
+To reach a container from the host, the ports must be exposed declaratively through the ports keyword, which also allows us to choose if we’re exposing the port differently in the host
+```
+ports:
+      - "8080:3000"
+```
+#### 3. Dependency chain
+Create a dependency chain between the services so that some services get loaded before (and unloaded after) other ones.
+```
+depends_on:
+      - zookeeper
+```
+
+#### 4. Enviromental variables
+We can define static environment variables, as well as dynamic variables, with the ${} notation
+
+There are different methods to provide those values to Compose. One method  is setting them in a .env file in the same directory, structured like key=value:
+```
+environment:
+      DB: mydb
+      USER: "${USER}"
+```
+</details>
+
+<details>
+	
+<summary><h3>Volumes</h3></summary>
+
+- Volumes are physical areas of disk space shared between containers. In other words, a volume is a shared directory in the host, visible from some or all containers.
+
+Here, both containers will have `read/write access` to the global-volume shared folder. 
+
+We can make a volume in `read-only mode` by appending :ro to the rule, like for the /home folder. 
+```
+services:
+  example-service:
+    image: alpine:latest
+    volumes: 
+      - global-volume:/path-inside-the-service
+      - /tmp:/read-write
+      - /home:/only-read:ro
+  example-service-2:
+    image: alpine:latest
+    volumes:
+      - global-volume:/where-to-store-volume
+volumes:
+ global-volume: 
+```
+</details>
+
+### Network
+
+- Network define the communication rules between containers, and between a container and the host. Common network zones will make the containers’ services discoverable by each other, while private zones will segregate them in virtual sandboxes.
+
+</details>
