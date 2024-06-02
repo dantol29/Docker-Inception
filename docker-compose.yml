@@ -26,6 +26,8 @@ services:
     expose:
       - "9000"
       - "3306"
+    depends_on:
+      - mariadb
 
   mariadb:
     build: mariadb/
