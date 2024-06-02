@@ -10,11 +10,17 @@ services:
     # This does not make the port accessible from the host machine.
     expose:
       - "9000"
-    environment:
-      PASSWORD: "${PASSWORD}"
+    volumes:
+      -wordpress-data:/var/www/html
+    depends_on:
+      - wordpress
+  
   wordpress:
     build: wordpress/
     expose:
       - "9000"
-    depends_on:
-      - nginx
+    volumes:
+      -wordpress-data:/var/www/html
+
+volumes:
+  wordpress-data:
