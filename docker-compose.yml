@@ -17,10 +17,23 @@ services:
   
   wordpress:
     build: wordpress/
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
     expose:
       - "9000"
     volumes:
       -wordpress-data:/var/www/html
+    
+   db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_ROOT_PASSWORD: rootpass
 
 volumes:
   wordpress-data:
