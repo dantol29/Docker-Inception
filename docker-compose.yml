@@ -1,9 +1,8 @@
 version: "3.7"
 services:
   nginx:
-    build:
-      nginx/
-      # Maps the host machine's ports to the container's ports.
+    build: nginx/
+    # Maps the host machine's ports to the container's ports.
     ports:
       - "443:443"
     # Exposes port 9000 to other services in the same Docker network.
@@ -14,7 +13,7 @@ services:
       - wordpress-data:/var/www/html
     depends_on:
       - wordpress
-  
+
   wordpress:
     build: wordpress/
     environment:
@@ -26,14 +25,6 @@ services:
       - wordpress-data:/var/www/html
     expose:
       - "9000"
-  
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_ROOT_PASSWORD: rootpass
 
 volumes:
   wordpress-data:
