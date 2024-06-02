@@ -9,7 +9,14 @@ RUN mkdir /run/mysqld
 
 RUN chmod 777 /run/mysqld
 
-COPY init.sql /docker-entrypoint-initdb.d/
+# Copy the custom entrypoint script into the image
+COPY custom-entrypoint.sh /custom-entrypoint.sh
+
+# Make the custom entrypoint script executable
+RUN chmod +x /custom-entrypoint.sh
+
+# Set the custom entrypoint script as the entrypoint for the container
+ENTRYPOINT ["/custom-entrypoint.sh"]
 
 EXPOSE 3306
 
