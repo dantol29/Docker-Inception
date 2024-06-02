@@ -23,6 +23,9 @@ http { \
         } \
     } \
 }' > /etc/nginx/nginx.conf
+RUN mkdir app
+
+RUN echo 'hello' > /app/index.html
 
 WORKDIR /app
 
