@@ -1,6 +1,26 @@
 # Use the official PHP image as the base image
 FROM php:8.0-fpm
 
+ARG DB_HOST
+ARG DB_USER
+ARG DB_NAME
+ARG DB_PASSWORD
+ARG WP_ADMIN_USER
+ARG WP_ADMIN_PASSWORD
+ARG WP_ADMIN_EMAIL
+ARG WP_TITLE
+ARG WP_URL
+
+ENV DB_HOST=$DB_HOST
+ENV DB_PASSWORD=$DB_PASSWORD
+ENV DB_USER=$DB_USER
+ENV DB_NAME=$DB_NAME
+ENV WP_ADMIN_USER=$WP_ADMIN_USER
+ENV WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD
+ENV WP_ADMIN_EMAIL=$WP_ADMIN_EMAIL
+ENV WP_TITLE=$WP_TITLE
+ENV WP_URL=$WP_URL
+
 # Set the working directory
 WORKDIR /var/www/html
 
@@ -38,9 +58,15 @@ RUN mkdir -p  /var/www/html/
 
 RUN chmod 777 /var/www/html/
 
-COPY conf/settings.php /var/www/html/wp-config.php
+# COPY conf/settings.php /var/www/html/wp-config.php
 
-RUN chmod 777 /var/www/html/wp-config.php
+# RUN chmod 777 /var/www/html/wp-config.php
+
+COPY conf/conf.sh /usr/local/bin
+
+RUN chmod 777 /usr/local/bin/conf.sh
+
+ENTRYPOINT ["/usr/local/bin/conf.sh"]
 
 # Expose port 9000
 EXPOSE 9000
