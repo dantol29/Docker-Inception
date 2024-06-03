@@ -13,6 +13,4 @@ COPY  conf/nginx.conf /etc/nginx/nginx.conf
 
 RUN chmod -R 755 /var/www/html
 
-EXPOSE 9000 443
-
 CMD ["nginx", "-g", "daemon off;"]

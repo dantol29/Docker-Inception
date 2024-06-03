@@ -2,13 +2,11 @@ version: "3.7"
 services:
   nginx:
     build: requirements/nginx/
+    container_name: nginx
+    image: nginx
     # Maps the host machine's ports to the container's ports.
     ports:
       - "443:443"
-    # Exposes port 9000 to other services in the same Docker network.
-    # This does not make the port accessible from the host machine.
-    expose:
-      - "9000"
     volumes:
       - wordpress-data:/var/www/html
     depends_on:
@@ -18,16 +16,19 @@ services:
 
   wordpress:
     build: requirements/wordpress/
+    container_name: wordpress
+    image: wordpress
     environment:
-      WORDPRESS_DB_HOST: mariadb
-      WORDPRESS_DB_USER: dtolmaco
-      WORDPRESS_DB_PASSWORD: dantol2004
-      WORDPRESS_DB_NAME: inceptiondb
+      WORDPRESS_DB_HOST: ${dbhost}
+      WORDPRESS_DB_USER: ${user}
+      WORDPRESS_DB_PASSWORD: ${password}
+      WORDPRESS_DB_NAME: ${dbname}
     volumes:
       - wordpress-data:/var/www/html
+    # Exposes port 9000 to other services in the same Docker network.
+    # This does not make the port accessible from the host machine.
     expose:
       - "9000"
-      - "3306"
     depends_on:
       - mariadb
     networks:
@@ -35,10 +36,12 @@ services:
 
   mariadb:
     build: requirements/mariadb/
+    container_name: mariadb
+    image: mariadb
     environment:
-      MYSQL_DATABASE: inceptiondb
-      MYSQL_PASSWORD: dantol2004
-      MYSQL_USER: dtolmaco
+      MYSQL_DATABASE: ${dbname}
+      MYSQL_PASSWORD: ${password}
+      MYSQL_USER: ${user}
     expose:
       - "3306"
     volumes:
@@ -48,6 +51,8 @@ services:
 
 volumes:
   wordpress-data:
+    name: wordpress-data
   mariadb-data:
+    name: mariadb-data
 networks:
   inception:

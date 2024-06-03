@@ -42,8 +42,8 @@ COPY conf/settings.php /var/www/html/wp-config.php
 
 RUN chmod 777 /var/www/html/wp-config.php
 
-# Expose port 9000 and 3306
-EXPOSE 9000 3306
+# Expose port 9000
+EXPOSE 9000
 
 # Start PHP-FPM server
 CMD ["php-fpm"]
