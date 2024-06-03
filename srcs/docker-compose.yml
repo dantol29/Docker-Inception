@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   nginx:
-    build: nginx/
+    build: requirements/nginx/
     # Maps the host machine's ports to the container's ports.
     ports:
       - "443:443"
@@ -17,7 +17,7 @@ services:
       - inception
 
   wordpress:
-    build: wordpress/
+    build: requirements/wordpress/
     environment:
       WORDPRESS_DB_HOST: mariadb
       WORDPRESS_DB_USER: dtolmaco
@@ -34,7 +34,7 @@ services:
       - inception
 
   mariadb:
-    build: mariadb/
+    build: requirements/mariadb/
     environment:
       MYSQL_DATABASE: inceptiondb
       MYSQL_PASSWORD: dantol2004

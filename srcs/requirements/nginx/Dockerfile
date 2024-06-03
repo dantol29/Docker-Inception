@@ -9,7 +9,7 @@ RUN openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/key.pem -out /etc/ngin
 -sha256 -days 3650 -nodes -subj \
 "/C=DE/ST=Texas/L=Austin/O=42/OU=Org/CN=dtolmaco.42.fr"
 
-COPY  nginx.conf /etc/nginx/nginx.conf
+COPY  conf/nginx.conf /etc/nginx/nginx.conf
 
 RUN chmod -R 755 /var/www/html
 
