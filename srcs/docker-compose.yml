@@ -35,14 +35,14 @@ services:
       - inception
 
   mariadb:
-    build: requirements/mariadb/
+    build: 
+      context: requirements/mariadb/
+      args:
+        MYSQL_DATABASE: ${dbname}
+        MYSQL_PASSWORD: ${password}
+        MYSQL_USER: ${user}
     container_name: mariadb
     image: mariadb
-    entrypoint: ["/dbsetup.sh"]
-    environment:
-      MYSQL_DATABASE: ${dbname}
-      MYSQL_PASSWORD: ${password}
-      MYSQL_USER: ${user}
     expose:
       - "3306"
     volumes:
