@@ -1,7 +1,7 @@
 <?php
 // MySQL database credentials
-define( 'DB_NAME', 'mysql' );
-define( 'DB_USER', 'root' );
+define( 'DB_NAME', 'inceptiondb' );
+define( 'DB_USER', 'dtolmaco' );
 define( 'DB_PASSWORD', 'dantol2004' );
 define( 'DB_HOST', 'mariadb' );
 

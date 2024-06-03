@@ -1,4 +1,0 @@
-CREATE DATABASE IF NOT EXISTS wordpressdb;
-CREATE USER 'dtolmaco'@'%' IDENTIFIED BY 'dantol2004';
-GRANT ALL PRIVILEGES ON wordpressdb.* TO 'dtolmaco'@'%';
-FLUSH PRIVILEGES;
