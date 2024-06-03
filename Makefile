@@ -1,16 +1,16 @@
-all: $(NAME)
-
-$(NAME) :
+all: 
 	docker-compose -f srcs/docker-compose.yml up
 
 up:
 	docker-compose -f srcs/docker-compose.yml up --build
 
 stop:
-	docker stop $(docker ps -q)
+	docker-compose -f srcs/docker-compose.yml down
 
 clean: stop
-	docker rm $(docker ps -aq)
+	# delete all containers, images
+	docker-compose -f srcs/docker-compose.yml rm -f
+	docker-compose -f srcs/docker-compose.yml down --rmi all
 
 re: stop clean all
 
