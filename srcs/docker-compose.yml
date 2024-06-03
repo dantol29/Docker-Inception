@@ -27,6 +27,9 @@ services:
         WP_ADMIN_EMAIL: ${wp_admin_email}
         WP_TITLE: ${wp_title}
         WP_URL: ${wp_url}
+        WP_GUEST_USER: ${wp_guest_user}
+        WP_GUEST_PASSWORD: ${wp_guest_password}
+        WP_GUEST_EMAIL: ${wp_guest_email}
     container_name: wordpress
     image: wordpress
     volumes:
