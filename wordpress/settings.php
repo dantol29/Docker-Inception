@@ -1,9 +1,9 @@
 <?php
 // MySQL database credentials
-define( 'DB_NAME', getenv('WORDPRESS_DB_NAME') );
-define( 'DB_USER', getenv('WORDPRESS_DB_USER') );
-define( 'DB_PASSWORD', getenv('WORDPRESS_DB_PASSWORD') );
-define( 'DB_HOST', getenv('WORDPRESS_DB_HOST') );
+define( 'DB_NAME', 'mysql' );
+define( 'DB_USER', 'root' );
+define( 'DB_PASSWORD', 'dantol2004' );
+define( 'DB_HOST', 'mariadb' );
 
 // // Database charset
 // define( 'DB_CHARSET', 'utf8' );
