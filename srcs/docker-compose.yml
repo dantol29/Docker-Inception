@@ -53,7 +53,15 @@ services:
 volumes:
   wordpress-data:
     name: wordpress-data
+    driver_opts:
+      type: none
+      device: /home/dtolmaco/data/wordpress-data
+      o: bind
   mariadb-data:
     name: mariadb-data
+    driver_opts:
+      type: none
+      device: /home/dtolmaco/data/mariadb-data
+      o: bind
 networks:
   inception:

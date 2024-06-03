@@ -25,6 +25,9 @@ RUN mysqld --bind-address=0.0.0.0 & \
     mysql -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" && \
     mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';" && \
     mysql -e "FLUSH PRIVILEGES;" && \
+    mysql -e "CREATE USER IF NOT EXISTS '${MYSQL_USER}2'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '${MYSQL_USER}2'@'%';" && \
+    mysql -e "FLUSH PRIVILEGES;" && \
     mysqladmin shutdown
 
 CMD ["mysqld", "--bind-address=0.0.0.0"]
