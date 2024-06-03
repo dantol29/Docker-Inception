@@ -38,6 +38,7 @@ services:
     build: requirements/mariadb/
     container_name: mariadb
     image: mariadb
+    entrypoint: ["/dbsetup.sh"]
     environment:
       MYSQL_DATABASE: ${dbname}
       MYSQL_PASSWORD: ${password}
