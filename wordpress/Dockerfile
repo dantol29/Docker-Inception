@@ -36,6 +36,8 @@ RUN chown -R www-data:www-data /var/www/html
 
 RUN mkdir -p  /var/www/html/
 
+RUN chmod 777 /var/www/html/
+
 COPY settings.php /var/www/html/wp-config.php
 
 RUN chmod 777 /var/www/html/wp-config.php
