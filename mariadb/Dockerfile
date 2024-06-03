@@ -9,7 +9,9 @@ RUN chmod 777 /run/mysqld
 
 COPY ./script.sh /
 
+RUN chmod 777 ./script.sh
+
 EXPOSE 3306
 
-CMD ["/script.sh"]
-# CMD ["mysqld", "--bind-address=0.0.0.0"]
+# CMD ["/script.sh"]
+CMD ["mysqld", "--bind-address=0.0.0.0"]

@@ -1,16 +1,24 @@
 #!/bin/bash
 
-service mysql start 
+# Start MySQL service
+service mysql start
 
+# Wait for MySQL to start
+while ! mysqladmin ping -hlocalhost --silent; do
+    sleep 1
+done
 
-echo "CREATE DATABASE IF NOT EXISTS inceptiondb ;" > db1.sql
-echo "CREATE USER IF NOT EXISTS 'dtolmaco'@'%' IDENTIFIED BY 'dantol2004' ;" >> db1.sql
-echo "GRANT ALL PRIVILEGES ON inceptiondb.* TO 'dtolmaco'@'%' ;" >> db1.sql
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> db1.sql
-echo "FLUSH PRIVILEGES;" >> db1.sql
+# Create a new database
+mysql -e "CREATE DATABASE inceptiondb;"
 
-mysql < db1.sql
+# Add a new user
+mysql -e "CREATE USER 'dtolmaco'@'localhost' IDENTIFIED BY 'dantol2004';"
 
-kill $(cat /var/run/mysqld/mysqld.pid)
+# Grant privileges to the new user
+mysql -e "GRANT ALL PRIVILEGES ON inceptiondb.* TO 'dtolmaco'@'localhost';"
 
-mysqld --bind-address=0.0.0.0
+# Flush privileges
+mysql -e "FLUSH PRIVILEGES;"
+
+# Keep container running
+exec "$@"
