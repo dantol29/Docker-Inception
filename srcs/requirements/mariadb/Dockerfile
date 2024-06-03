@@ -11,9 +11,9 @@ EXPOSE 3306
 
 RUN mysqld --bind-address=0.0.0.0 & \
     sleep 5 && \
-    mysql -e "CREATE DATABASE IF NOT EXISTS inceptiondb;" && \
-    mysql -e "CREATE USER IF NOT EXISTS 'dtolmaco'@'%' IDENTIFIED BY 'dantol2004';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON inceptiondb.* TO 'dtolmaco'@'%';" && \
+    mysql -e "CREATE DATABASE IF NOT EXISTS $(getenv dbname);" && \
+    mysql -e "CREATE USER IF NOT EXISTS '$(getenv user)'@'%' IDENTIFIED BY '$(getenv password)';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON $(getenv dbname).* TO '$(getenv user)'@'%';" && \
     mysql -e "FLUSH PRIVILEGES;" && \
     mysqladmin shutdown
 
